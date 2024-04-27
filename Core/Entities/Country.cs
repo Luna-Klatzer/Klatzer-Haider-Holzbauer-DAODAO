@@ -1,6 +1,8 @@
-namespace Core.Contracts;
+using Core.Contracts;
 
-public interface ICountry
+namespace Core.Entities;
+
+public class Country : ICountry
 {
     public string Name { get; set; }
 
