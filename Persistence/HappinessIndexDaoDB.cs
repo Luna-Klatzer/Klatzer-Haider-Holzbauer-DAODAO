@@ -12,6 +12,36 @@ public class HappinessIndexDaoDB : IHappinessIndexDaoDB
         throw new NotImplementedException();
     }
 
+    public Task<ICountry> GetCountryByCountryNameAsync(string countryName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICountry> AddCountryAsync(ICountry country)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICountry> AddYearToCountryAsync(string countryName, IYear year)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICountry> UpdateAsync(ICountry entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(string countryName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> ExistsAsync(string countryName)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<IHappinessIndex> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
@@ -33,6 +63,11 @@ public class HappinessIndexDaoDB : IHappinessIndexDaoDB
     }
 
     public Task<bool> ExistsAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<IList<ICountry>> IHappinessIndexDao.GetAllAsync()
     {
         throw new NotImplementedException();
     }

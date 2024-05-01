@@ -7,4 +7,12 @@ var countriesJson = await jsonDAO.GetAllAsync();
 
 var csvDAO = new HappinessIndexDaoCSV("./Data/Countries_1960-2023.csv", "./Data/WorldHappinessIndex_2005-2020.csv");
 var countriesCsv = await csvDAO.GetAllAsync();
+
+var indexes = await csvDAO.GetHappinessIndexes();
+Console.WriteLine("Countries from CSV:");
+foreach (var country in indexes)
+{
+    Console.WriteLine(country.Name);
+}
+
 Console.WriteLine();

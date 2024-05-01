@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Core.Contracts;
 using Core.Entities;
 using Org.BouncyCastle.Security;
@@ -159,7 +160,7 @@ public class HappinessIndexDaoJSON(string fileName) : IHappinessIndexDaoJSON
                 Generosity = h.Generosity == "" ? null : double.Parse(h.Generosity.Replace(",", ".")),
                 PerceptionOfCorruption = h.PerceptionsOfCorruption == "" ? null : h.PerceptionsOfCorruption == "" ? null : double.Parse(h.PerceptionsOfCorruption.Replace(",", ".")),
                 PositiveAffect = h.ExplainedByLogGDPPerCapita == "" ? null : double.Parse(h.ExplainedByLogGDPPerCapita.Replace(",", ".")),
-                NegativeEffort = h.ExplainedBySocialSupport == "" ? null : double.Parse(h.ExplainedBySocialSupport.Replace(",", ".")),
+                NegativeAffect = h.ExplainedBySocialSupport == "" ? null : double.Parse(h.ExplainedBySocialSupport.Replace(",", ".")),
                 LifeLadderInDystopia = h.LadderScoreInDystopia == "" ? null : double.Parse(h.LadderScoreInDystopia.Replace(",", ".")),
                 DystopiaPlusResidual = h.DystopiaResidual == "" ? null : double.Parse(h.DystopiaResidual.Replace(",", "."))
             }

@@ -15,7 +15,7 @@ public class HappinessIndex : IHappinessIndex
     public double? Generosity { get; set; }
     public double? PerceptionOfCorruption { get; set; }
     public double? PositiveAffect { get; set; }
-    public double? NegativeEffort { get; set; }
+    public double? NegativeAffect { get; set; }
     public double? LifeLadderInDystopia { get; set; }
     public double? DystopiaPlusResidual { get; set; }
 }

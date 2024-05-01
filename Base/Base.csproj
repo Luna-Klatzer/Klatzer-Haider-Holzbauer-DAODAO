@@ -7,7 +7,6 @@
         <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
         <InvariantGlobalization>false</InvariantGlobalization>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>

@@ -6,5 +6,5 @@ public interface ICountry
 
     public string? CountryCode { get; set; }
 
-    public IList<IYear> Years { get; set; }
+    public IList<IYear>? Years { get; set; }
 }
