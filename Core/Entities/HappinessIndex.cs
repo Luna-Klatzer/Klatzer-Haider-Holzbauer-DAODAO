@@ -4,20 +4,18 @@ namespace Core.Entities;
 
 public class HappinessIndex : IHappinessIndex
 {
-    public ICountry Country { get; set; }
-    public short Year { get; set; }
-    public short? LifeLadder { get; set; }
-    public short? LifeLadderStandardError { get; set; }
-    public short? UpperWhisker { get; set; }
-    public short? LowerWhisker { get; set; }
-    public short? LogGdpPerCapita { get; set; }
-    public short? SocialSupport { get; set; }
-    public short? HealthyLifeExpectancyAtBirth { get; set; }
-    public short? FreedomToMakeLifeChoices { get; set; }
-    public short? Generosity { get; set; }
-    public short? PerceptionOfCorruption { get; set; }
-    public short? PositiveAffect { get; set; }
-    public short? NegativeEffort { get; set; }
-    public short? LifeLadderInDystopia { get; set; }
-    public short? DystopiaPlusResidual { get; set; }
+    public double? LifeLadder { get; set; }
+    public double? LifeLadderStandardError { get; set; }
+    public double? UpperWhisker { get; set; }
+    public double? LowerWhisker { get; set; }
+    public double? LogGdpPerCapita { get; set; }
+    public double? SocialSupport { get; set; }
+    public double? HealthyLifeExpectancyAtBirth { get; set; }
+    public double? FreedomToMakeLifeChoices { get; set; }
+    public double? Generosity { get; set; }
+    public double? PerceptionOfCorruption { get; set; }
+    public double? PositiveAffect { get; set; }
+    public double? NegativeEffort { get; set; }
+    public double? LifeLadderInDystopia { get; set; }
+    public double? DystopiaPlusResidual { get; set; }
 }

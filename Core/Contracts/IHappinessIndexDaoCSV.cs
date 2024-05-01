@@ -2,5 +2,6 @@ namespace Core.Contracts;
 
 public interface IHappinessIndexDaoCSV : IHappinessIndexDao
 {
-    public string FileName { get; set; }
+    public string FileNameCountries { get; set; }
+    public string FileNameHappyIndexes { get; set; }
 }
