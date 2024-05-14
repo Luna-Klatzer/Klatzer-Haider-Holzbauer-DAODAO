@@ -2,7 +2,7 @@ using Core.Contracts;
 
 namespace Core.Entities;
 
-public class HappinessIndex : IHappinessIndex
+public class HappinessIndex : BaseEntity, IHappinessIndex
 {
     public double? LifeLadder { get; set; }
     public double? LifeLadderStandardError { get; set; }

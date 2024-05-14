@@ -10,6 +10,8 @@ public class ApplicationDbContext : DbContext
     // Using null! to avoid nullable reference warnings
     public DbSet<Country> Countries { get; set; } = null!;
     public DbSet<HappinessIndex> HappinessIndices { get; set; } = null!;
+    public DbSet<Year> Years { get; set; } = null!;
+    public DbSet<Log> Logs { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -38,5 +40,14 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+
     }
+}
+
+public class Log : BaseEntity
+{
+    public string Message { get; set; } = null!;
+    public DateTime CreatedAt { get; set; }
+    public string Level { get; set; } = null!;
 }

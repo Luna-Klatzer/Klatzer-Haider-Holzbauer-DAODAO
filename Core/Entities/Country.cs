@@ -2,10 +2,11 @@ using Core.Contracts;
 
 namespace Core.Entities;
 
-public class Country : ICountry
+public class Country : BaseEntity,ICountry
 {
     public required string Name { get; set; }
 
     public string? CountryCode { get; set; }
-    public IList<IYear>? Years { get; set; } = [];
+
+    public List<Year>? Years { get; set; } = [];
 }

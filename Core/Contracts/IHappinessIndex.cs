@@ -1,6 +1,6 @@
 namespace Core.Contracts;
 
-public interface IHappinessIndex
+public interface IHappinessIndex : IBaseEntity
 {
     public double? LifeLadder { get; set; }
 

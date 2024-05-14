@@ -6,9 +6,9 @@ using Org.BouncyCastle.Security;
 
 namespace Import;
 
-public class HappinessIndexDaoJSON(string fileName) : IHappinessIndexDaoJSON
+public class HappinessIndexDaoJSON() : IHappinessIndexDaoJSON
 {
-    public string FileName { get; set; } = fileName;
+    public string FileName { get; set; }
 
     private record HappinessIndexJSON
     (
@@ -33,44 +33,29 @@ public class HappinessIndexDaoJSON(string fileName) : IHappinessIndexDaoJSON
         string DystopiaResidual
     );
 
-    public async Task<IList<ICountry>> GetAllAsync()
+    public async Task<List<Country>> ImportAllCountriesAsync()
     {
         var text = await File.ReadAllTextAsync(FileName);
-        var json = JsonSerializer.Deserialize<IList<HappinessIndexJSON>>(ReplaceJsonNamesWithObjNames(text));
+        var json = JsonSerializer.Deserialize<List<HappinessIndexJSON>>(ReplaceJsonNamesWithObjNames(text));
 
         var happinessIndexes = json!
             .Select(h => new Country
             {
                 Name = h.CountryName,
-                Years = new List<IYear>
+                Years = new List<Year>
                 {
                     ConvertHappinessIndexJsonToYear(h, 2023)
                 }
             });
         
-        return happinessIndexes.ToList<ICountry>();
+        return happinessIndexes.ToList();
 
     }
 
     public async Task<ICountry> GetCountryByCountryNameAsync(string countryName)
     {
-        var countries = await GetAllAsync();
+        var countries = await ImportAllCountriesAsync();
         return countries.Single(c => c.Name == countryName);
-    }
-
-    public Task<ICountry> AddCountryAsync(ICountry country)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ICountry> AddYearToCountryAsync(string countryName, IYear year)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ICountry> UpdateAsync(ICountry entity)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task DeleteAsync(string countryName)
@@ -83,13 +68,13 @@ public class HappinessIndexDaoJSON(string fileName) : IHappinessIndexDaoJSON
 
     public async Task<bool> ExistsAsync(string countryName)
     {
-        var countries = await GetAllAsync();
+        var countries = await ImportAllCountriesAsync();
         return countries.Any(c => c.Name == countryName);
     }
 
     public async Task<int> CountAsync()
     {
-        var countries = await GetAllAsync();
+        var countries = await ImportAllCountriesAsync();
         return countries.Count();
     }
 
@@ -145,7 +130,6 @@ public class HappinessIndexDaoJSON(string fileName) : IHappinessIndexDaoJSON
     {
         return new Year
         {
-            
             YearNumber = year,
             HappinessIndex = new HappinessIndex
             {
@@ -159,8 +143,6 @@ public class HappinessIndexDaoJSON(string fileName) : IHappinessIndexDaoJSON
                 FreedomToMakeLifeChoices = h.FreedomToMakeLifeChoices == "" ? null : double.Parse(h.FreedomToMakeLifeChoices.Replace(",", ".")),
                 Generosity = h.Generosity == "" ? null : double.Parse(h.Generosity.Replace(",", ".")),
                 PerceptionOfCorruption = h.PerceptionsOfCorruption == "" ? null : h.PerceptionsOfCorruption == "" ? null : double.Parse(h.PerceptionsOfCorruption.Replace(",", ".")),
-                PositiveAffect = h.ExplainedByLogGDPPerCapita == "" ? null : double.Parse(h.ExplainedByLogGDPPerCapita.Replace(",", ".")),
-                NegativeAffect = h.ExplainedBySocialSupport == "" ? null : double.Parse(h.ExplainedBySocialSupport.Replace(",", ".")),
                 LifeLadderInDystopia = h.LadderScoreInDystopia == "" ? null : double.Parse(h.LadderScoreInDystopia.Replace(",", ".")),
                 DystopiaPlusResidual = h.DystopiaResidual == "" ? null : double.Parse(h.DystopiaResidual.Replace(",", "."))
             }
