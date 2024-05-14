@@ -70,8 +70,34 @@ IHappinessIndex:
 Die Klassen implementieren diese Interfaces. Wird ein HappinessIndex eingefügt, dessen Country in der Datenbank noch nicht existiert, wird dieses erstellt und das Event in die Log-Tabelle eingefügt.
 
 ## 3) Log-Entries
+![UwU Bild von Logs](./Screenshot_20240514_150326.png)
 
 ## 4) Query A
 
 Welches Land hatte den größten Abfall im WHI? (Vergleich frühester Eintrag zu spätestem Eintrag) Welche anderen Werte sind in diesem Land ebenfalls abgefallen oder gestiegen? Erkennen Sie 
 einen Zusammenhang?
+
+Die Query durchsucht jedes Land und vergleicht den ersten und letzten Eintrag des HappinessIndex. Das Land mit dem größten Abfall wird zurückgegeben.
+```csharp
+static Country GetCountryWithMaxHappinessIndexDrop(List<Country> countries)
+{
+    Country? countryWithMaxDrop = null;
+    double maxDrop = double.MinValue;
+
+    foreach (var country in countries)
+    {
+        var years = country.Years!.OrderBy(y => y.YearNumber).ToList();
+
+        var initialHappiness = years.First().HappinessIndex?.LifeLadder ?? 0;
+        var latestHappiness = years.Last().HappinessIndex?.LifeLadder ?? 0;
+
+        if (initialHappiness - latestHappiness > maxDrop)
+        {
+            maxDrop = initialHappiness - latestHappiness;
+            countryWithMaxDrop = country;
+        }
+    }
+    return countryWithMaxDrop!;
+}
+```
+In unserem Fall war das Ergebnis der Kongo, was plausibel klingt da es sich um ein Land handelt, das in den letzten Jahren durch politische Unruhen und Armut geprägt war.

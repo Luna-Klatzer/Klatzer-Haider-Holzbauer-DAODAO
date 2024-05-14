@@ -66,27 +66,23 @@ Console.WriteLine();
 
 static Country GetCountryWithMaxHappinessIndexDrop(List<Country> countries)
 {
-    Country countryWithMaxDrop = null;
+    Country? countryWithMaxDrop = null;
     double maxDrop = double.MinValue;
 
     foreach (var country in countries)
     {
-        var years = country.Years.OrderBy(y => y.YearNumber).ToList();
-        if (years.Count < 2) continue;
+        var years = country.Years!.OrderBy(y => y.YearNumber).ToList();
 
         var initialHappiness = years.First().HappinessIndex?.LifeLadder ?? 0;
         var latestHappiness = years.Last().HappinessIndex?.LifeLadder ?? 0;
 
-        var drop = initialHappiness - latestHappiness;
-
-        if (drop > maxDrop)
+        if (initialHappiness - latestHappiness > maxDrop)
         {
-            maxDrop = drop;
+            maxDrop = initialHappiness - latestHappiness;
             countryWithMaxDrop = country;
         }
     }
-
-    return countryWithMaxDrop;
+    return countryWithMaxDrop!;
 }
 
 var countryWithMaxDrop = GetCountryWithMaxHappinessIndexDrop(countries);
