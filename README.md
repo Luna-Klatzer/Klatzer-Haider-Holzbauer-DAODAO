@@ -1,3 +1,13 @@
+---
+geometry: margin=30mm
+table-of-contents: true
+header-includes: |
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhead[L]{Haider, Holzbauer, Klatzer, 4AHIF}
+    \fancyfoot[C]{\thepage}
+---
+
 # Übung: DAO
 
 Sophie Haider, Lorenz Holzbauer, Luna Klatzer
@@ -6,6 +16,7 @@ Sophie Haider, Lorenz Holzbauer, Luna Klatzer
 - Countries_1960-2023.csv: in dieser CSV werden die totale Population, die Prozentzahl der Landbevölkerung, Geburtsrate für 1960 bis 2023 gespeichert
 
 - WorldHappinessIndex-Files:
+
     |CSV|JSON|Beschreibung|
     |--|--|--|
     |Country name|Country name| Name des Landes
@@ -31,7 +42,9 @@ Sophie Haider, Lorenz Holzbauer, Luna Klatzer
 
 
 ## 2) Datenmodell und Technologien
+
 **Technologien:**
+
 - Backend: .NET, EntityFramework
 - Datenbank: MySQL in Docker
 
@@ -40,11 +53,13 @@ Sophie Haider, Lorenz Holzbauer, Luna Klatzer
 Unser CSV und unser JSON Dao implementieren das Interface IHappinessIndexDao. Dieses Interface definiert, dass jeder Dao eine Funktion für das Importen benötigt. Im Import werden die Fileinhalte auf die gewünschte Struktur geparsed und in die Datenbank eingefügt:
 
 ICountry:
+
 - Name
 - CountryCode
 - Years
 
 IYear:
+
 - YearNumber
 - BirthRate
 - PopulationTotal
@@ -52,6 +67,7 @@ IYear:
 - HappinessIndex
 
 IHappinessIndex:
+
 - LifeLadder
 - LifeLadderStandardError
 - UpperWhiskey
@@ -70,7 +86,8 @@ IHappinessIndex:
 Die Klassen implementieren diese Interfaces. Wird ein HappinessIndex eingefügt, dessen Country in der Datenbank noch nicht existiert, wird dieses erstellt und das Event in die Log-Tabelle eingefügt.
 
 ## 3) Log-Entries
-![UwU Bild von Logs](./Screenshot_20240514_150326.png)
+
+![](./Screenshot_20240514_150326.png)
 
 ## 4) Query A
 
@@ -78,6 +95,7 @@ Welches Land hatte den größten Abfall im WHI? (Vergleich frühester Eintrag zu
 einen Zusammenhang?
 
 Die Query durchsucht jedes Land und vergleicht den ersten und letzten Eintrag des HappinessIndex. Das Land mit dem größten Abfall wird zurückgegeben.
+
 ```csharp
 static Country GetCountryWithMaxHappinessIndexDrop(List<Country> countries)
 {
@@ -100,4 +118,5 @@ static Country GetCountryWithMaxHappinessIndexDrop(List<Country> countries)
     return countryWithMaxDrop!;
 }
 ```
+
 In unserem Fall war das Ergebnis der Kongo, was plausibel klingt da es sich um ein Land handelt, das in den letzten Jahren durch politische Unruhen und Armut geprägt war.
