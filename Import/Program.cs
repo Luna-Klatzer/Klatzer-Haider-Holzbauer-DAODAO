@@ -47,15 +47,47 @@ var otherCountries = countriesJson
     .Where(jsonCountry => countriesCsv.All(csvCountry => csvCountry.Name != jsonCountry.Name))
     .ToList();
 
+var logs = otherCountries.Select(c => new Log
+{
+    Message = $"Country {c.Name} was not found in CSV file",
+    CreatedAt = DateTime.Now,
+    Level = "Info"
+});
+
+context.Logs.AddRange(logs);
+
 countries.AddRange(otherCountries);
 
 context.Countries.AddRange(countries);
 await context.SaveChangesAsync();
 
-Console.WriteLine("Countries from CSV:");
-foreach (var country in countries)
-{
-    Console.WriteLine(country.Name);
-}
 
 Console.WriteLine();
+
+static Country GetCountryWithMaxHappinessIndexDrop(List<Country> countries)
+{
+    Country countryWithMaxDrop = null;
+    double maxDrop = double.MinValue;
+
+    foreach (var country in countries)
+    {
+        var years = country.Years.OrderBy(y => y.YearNumber).ToList();
+        if (years.Count < 2) continue;
+
+        var initialHappiness = years.First().HappinessIndex?.LifeLadder ?? 0;
+        var latestHappiness = years.Last().HappinessIndex?.LifeLadder ?? 0;
+
+        var drop = initialHappiness - latestHappiness;
+
+        if (drop > maxDrop)
+        {
+            maxDrop = drop;
+            countryWithMaxDrop = country;
+        }
+    }
+
+    return countryWithMaxDrop;
+}
+
+var countryWithMaxDrop = GetCountryWithMaxHappinessIndexDrop(countries);
+Console.WriteLine($"Country with max happiness index drop: {countryWithMaxDrop.Name}");
