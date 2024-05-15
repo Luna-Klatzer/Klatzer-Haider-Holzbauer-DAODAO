@@ -54,36 +54,63 @@ Unser CSV und unser JSON Dao implementieren das Interface IHappinessIndexDao. Di
 
 ICountry:
 
-- Name
-- CountryCode
-- Years
+``` csharp
+public interface ICountry : IBaseEntity
+{
+    public string Name { get; set; }
+
+    public string? CountryCode { get; set; }
+
+    public List<Year>? Years { get; set; }
+}
+```
 
 IYear:
 
-- YearNumber
-- BirthRate
-- PopulationTotal
-- RuralPopulation
-- HappinessIndex
+``` csharp
+public interface IYear : IBaseEntity
+{
+    public int YearNumber { get; set; }
+    public double? BirthRate { get; set; }
+    public long? PopulationTotal { get; set; }
+    public double? RuralPopulation { get; set; }
+    public int? HappinessIndexId { get; set; }
+    public HappinessIndex? HappinessIndex { get; set; }
+}
+```
 
 IHappinessIndex:
 
-- LifeLadder
-- LifeLadderStandardError
-- UpperWhiskey
-- LowerWhiskey
-- LogGdpPerCapita
-- SocialSupport
-- HealthyLifeExpectancyAtBirth
-- FreedomToMakeLifeChoices
-- Generosity
-- PerceptionOfCorruption
-- PositiveAffect
-- NegativeAffect
-- LifeLadderInDystopia
-- DystopiaPlusResidual
+``` csharp
+public interface IHappinessIndex : IBaseEntity
+{
+    public double? LifeLadder { get; set; }
+    public double? LifeLadderStandardError { get; set; }
+    public double? UpperWhisker { get; set; }
+    public double? LowerWhisker { get; set; }
+    public double? LogGdpPerCapita { get; set; }
+    public double? SocialSupport { get; set; }
+    public double? HealthyLifeExpectancyAtBirth { get; set; }
+    public double? FreedomToMakeLifeChoices { get; set; }
+    public double? Generosity { get; set; }
+    public double? PerceptionOfCorruption { get; set; }
+    public double? PositiveAffect { get; set; }
+    public double? NegativeAffect { get; set; }
+    public double? LifeLadderInDystopia { get; set; }
+    public double? DystopiaPlusResidual { get; set; }
+}
+```
 
 Die Klassen implementieren diese Interfaces. Wird ein HappinessIndex eingefügt, dessen Country in der Datenbank noch nicht existiert, wird dieses erstellt und das Event in die Log-Tabelle eingefügt.
+
+Die Daos implementieren alle die Funktionen vom Interface IHappinessIndexDao:
+
+``` csharp
+public interface IHappinessIndexDao
+{
+    public Task<List<Country>> ImportAllCountriesAsync();
+}
+```
 
 ## 3) Log-Entries
 
